@@ -4,7 +4,7 @@ This repository contains the code used for processing and analyzing 18TB of mobi
 
 Results have been published in:
 
-<a href="https://dl.acm.org/author_page.cfm?id=99658636849" ><strong>Daniel Hintze</strong></a>, Philipp Hintze, <a href="https://dl.acm.org/author_page.cfm?id=81552931556" >Rainhard D. Findling</a>, <a href="https://dl.acm.org/author_page.cfm?id=81330494985" >Ren&#233; Mayrhofer</a>: <strong>A Large-Scale, Long-Term Analysis of Mobile Device Usage Characteristics</strong>, <i>Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies</i>, vol. 1, no. 2, June 2017
+<a href="https://dl.acm.org/author_page.cfm?id=99658636849" ><strong>Daniel Hintze</strong></a>, [Philipp Hintze](https://dl.acm.org/author_page.cfm?id=99659185428&coll=DL&dl=ACM&trk=0), <a href="https://dl.acm.org/author_page.cfm?id=81552931556" >Rainhard D. Findling</a>, <a href="https://dl.acm.org/author_page.cfm?id=81330494985" >Ren&#233; Mayrhofer</a>: <strong>[A Large-Scale, Long-Term Analysis of Mobile Device Usage Characteristics](https://dl.acm.org/citation.cfm?id=3090078)</strong>, <i>Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies</i>, vol. 1, no. 2, June 2017
 
 <a href="https://dl.acm.org/author_page.cfm?id=99658636849" ><strong>Daniel Hintze</strong></a>,
 <a href="https://dl.acm.org/author_page.cfm?id=81552931556" >Rainhard D. Findling</a>,
