@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import de.fhdw.deviceanalyzer.parser.CellBasedContextLocationParser;
@@ -29,12 +30,22 @@ import de.fhdw.deviceanalyzer.parser.core.Event;
 
 public class ParsingModule implements IModule {
 
-	public static final Path DIR_DOWNLOAD = Paths.get("~/device-analyzer/dataset");
-	public static final Path DIR_LOCKED = Paths.get("~/results/locked_sessions");
-	public static final Path DIR_WIRELESS = Paths.get("~/results/wireless");
-	public static final Path DIR_UNLOCKED = Paths.get("~/results/unlocked_sessions");
-	public static final Path DIR_DEVICES = Paths.get("~/results/devices");
-	public static final Path DIR_DONE = Paths.get("~/results/done");
+	// Property keys
+	public static final String DIR_DOWNLOAD_KEY = "DIR_DOWNLOAD";
+	public static final String DIR_LOCKED_KEY = "DIR_LOCKED";
+	public static final String DIR_WIRELESS_KEY = "DIR_WIRELESS";
+	public static final String DIR_UNLOCKED_KEY = "DIR_UNLOCKED";
+	public static final String DIR_DEVICES_KEY = "DIR_DEVICES";
+	public static final String DIR_DONE_KEY = "DIR_DONE";
+
+	private final Path DIR_DOWNLOAD;
+	private final Path DIR_LOCKED;
+	private final Path DIR_WIRELESS;
+	private final Path DIR_UNLOCKED;
+	private final Path DIR_DEVICES;
+	private final Path DIR_DONE;
+
+	private Properties properties;
 
 	private volatile boolean shutdown = false;
 
@@ -42,7 +53,16 @@ public class ParsingModule implements IModule {
 
 	private AtomicInteger counter = new AtomicInteger();
 
-	public ParsingModule() {
+	public ParsingModule(Properties properties) {
+		this.properties = properties;
+
+		DIR_DOWNLOAD = Paths.get(properties.getProperty(DIR_DOWNLOAD_KEY));
+		DIR_LOCKED = Paths.get(properties.getProperty(DIR_LOCKED_KEY));
+		DIR_WIRELESS = Paths.get(properties.getProperty(DIR_WIRELESS_KEY));
+		DIR_UNLOCKED = Paths.get(properties.getProperty(DIR_UNLOCKED_KEY));
+		DIR_DEVICES = Paths.get(properties.getProperty(DIR_DEVICES_KEY));
+		DIR_DONE = Paths.get(properties.getProperty(DIR_DONE_KEY));
+
 		DIR_LOCKED.toFile().mkdirs();
 		DIR_UNLOCKED.toFile().mkdirs();
 		// DIR_WIRELESS.toFile().mkdirs();
@@ -106,7 +126,7 @@ public class ParsingModule implements IModule {
 		mainParser.add(wifiScanContextParser);
 		mainParser.add(deviceInfoParser);
 		// mainParser.add(wirelessInfoParser);
-		mainParser.add(new SessionParser(deviceInfoParser, sessionFoulDateParser));
+		mainParser.add(new SessionParser(deviceInfoParser, sessionFoulDateParser, properties));
 
 		parse(file, vanguardParser);
 		parse(file, mainParser);

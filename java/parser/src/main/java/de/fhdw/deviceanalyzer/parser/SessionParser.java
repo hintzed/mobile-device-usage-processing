@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 import java.util.Set;
 
 import com.google.common.base.Objects;
@@ -71,9 +72,12 @@ public class SessionParser implements IParser {
 
 	private DeviceInfo deviceInfo;
 
-	public SessionParser(DeviceInfoParser deviceInfoParser, SessionFoulDateParser sessionFoulDateParser) {
+	private Properties properties;
+
+	public SessionParser(DeviceInfoParser deviceInfoParser, SessionFoulDateParser sessionFoulDateParser, Properties properties) {
 		this.deviceInfoParser = deviceInfoParser;
 		this.sessionFoulDateParser = sessionFoulDateParser;
+		this.properties = properties;
 	}
 
 	@Override
@@ -221,9 +225,9 @@ public class SessionParser implements IParser {
 		lockedSessionLine.add(0, Session.getFileHeading(false));
 		unlockedSessionLine.add(0, Session.getFileHeading(true));
 
-		FileUtil.writeToFile(lockedSessionLine, new File(ParsingModule.DIR_LOCKED.toFile(), deviceId + ".csv"));
-		FileUtil.writeToFile(unlockedSessionLine, new File(ParsingModule.DIR_UNLOCKED.toFile(), deviceId + ".csv"));
-		deviceInfo.writeToFile(new File(ParsingModule.DIR_DEVICES.toFile(), "devices.csv"));
+		FileUtil.writeToFile(lockedSessionLine, new File(properties.getProperty(ParsingModule.DIR_LOCKED_KEY), deviceId + ".csv"));
+		FileUtil.writeToFile(unlockedSessionLine, new File(properties.getProperty(ParsingModule.DIR_UNLOCKED_KEY), deviceId + ".csv"));
+		deviceInfo.writeToFile(new File(properties.getProperty(ParsingModule.DIR_DEVICES_KEY), "devices.csv"));
 	}
 
 	private void parseEventForSession(Event event) {
