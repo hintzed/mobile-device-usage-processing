@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Properties;
 import java.util.Set;
 
 import de.fhdw.deviceanalyzer.ParsingModule;
@@ -21,8 +22,11 @@ public class WirelessInfoParser implements IParser {
 	private WirelessLogEntry currentBluetoothLog;
 	private Set<String> currentMACs = new HashSet<>();
 
-	public WirelessInfoParser(DeviceInfoParser deviceInfoParser) {
+	private Properties properties;
+
+	public WirelessInfoParser(DeviceInfoParser deviceInfoParser, Properties properties) {
 		this.deviceInfoParser = deviceInfoParser;
+		this.properties = properties;
 	}
 
 	@Override
@@ -76,7 +80,7 @@ public class WirelessInfoParser implements IParser {
 	public void endParsing(String deviceId) {
 		lines.add(0, WirelessLogEntry.getFileHeading());
 
-		FileUtil.writeToFile(lines, new File(ParsingModule.DIR_WIRELESS.toFile(), deviceId + ".csv"));
+		FileUtil.writeToFile(lines, new File(properties.getProperty(ParsingModule.DIR_WIRELESS_KEY), deviceId + ".csv"));
 	}
 
 }
